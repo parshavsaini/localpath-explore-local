@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LocalPath – Discover the places tourists miss</title>
+<style>
+:root{--bg:#fbf7f0;--bg2:#f3ebdd;--card:#fff;--ink:#241c14;--mute:#6b5f50;--acc:#c2410c;--acc2:#0f766e;--line:#e6dac7;--chip:#f3ebdd;--hero1:#fde7cf;--hero2:#d9efe9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15110e;--bg2:#1d1712;--card:#211b15;--ink:#f3eadc;--mute:#b5a794;--acc:#f08a4b;--acc2:#5fc9b9;--line:#3a3027;--chip:#2c241c;--hero1:#2d1d12;--hero2:#122622;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15110e;--bg2:#1d1712;--card:#211b15;--ink:#f3eadc;--mute:#b5a794;--acc:#f08a4b;--acc2:#5fc9b9;--line:#3a3027;--chip:#2c241c;--hero1:#2d1d12;--hero2:#122622;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1000px;margin:0 auto;padding:0 18px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.logo{font:700 1.4rem Georgia,serif;color:var(--ink);text-decoration:none}.logo b{color:var(--acc)}
+nav div a{margin-left:18px;color:var(--mute);text-decoration:none;font-size:.95rem}
+.hero{background:linear-gradient(135deg,var(--hero1),var(--hero2))}
+.hero .w{padding-top:8px;padding-bottom:64px}
+.eyebrow{display:inline-block;padding:5px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.8rem;font-weight:600;color:var(--acc2)}
+h1{font:700 clamp(2.1rem,6vw,3.6rem)/1.1 Georgia,serif;margin:16px 0 14px;max-width:760px}
+h1 em{color:var(--acc);font-style:normal}
+.lead{font-size:1.15rem;color:var(--mute);max-width:620px;margin:0 0 24px}
+.btn{display:inline-block;padding:13px 24px;border-radius:12px;background:var(--acc);color:#fff;font:700 1rem inherit;border:0;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px;max-width:640px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stats strong{display:block;font:700 1.5rem Georgia,serif;color:var(--acc)}.stats span{font-size:.82rem;color:var(--mute)}
+section{padding:56px 0}
+h2{font:700 1.9rem Georgia,serif;margin:0 0 8px}.sec-sub{color:var(--mute);margin:0 0 26px;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h3{margin:6px 0;font-size:1.05rem}.card p{margin:0;color:var(--mute);font-size:.94rem}
+.ico{width:40px;height:40px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-size:1.3rem}
+.alt{background:var(--bg2)}
+label{display:block;font-weight:600;font-size:.88rem;margin:14px 0 6px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc2);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer;font:inherit;font-size:.88rem}
+.chip[aria-pressed="true"]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.go{width:100%;margin-top:18px}.go:disabled{opacity:.6}
+.note{font-size:.82rem;color:var(--mute)}.err{color:#c0392b}
+.stop{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line)}.stop:first-of-type{border-top:0}
+.time{min-width:70px;font-weight:700;color:var(--acc2);font-size:.9rem}
+.stop h4{margin:0 0 3px;font-size:1.05rem}
+.tag{display:inline-block;font-size:.7rem;padding:2px 9px;border-radius:999px;background:var(--acc2);color:#fff;margin-left:6px;vertical-align:middle}.tag.gem{background:var(--acc)}
+.meta{color:var(--mute);font-size:.86rem;margin-top:4px}.meta a{color:var(--acc2)}
+ul{margin:0;padding-left:20px}li{margin:4px 0}
+.msg{padding:10px 13px;border-radius:12px;margin:8px 0;white-space:pre-wrap}.me{background:var(--chip);margin-left:28px}.ai{border:1px solid var(--line);margin-right:28px}
+.chat{display:flex;gap:8px;margin-top:10px}.chat .btn{padding:0 20px}
+.sec{background:transparent;border:1px solid var(--line);color:var(--ink);padding:9px 15px;border-radius:10px;cursor:pointer;font:inherit;margin:10px 8px 0 0}
+.panel{display:grid;gap:14px;margin-top:18px}
+.biz{white-space:pre-wrap}
+footer{padding:32px 0;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+[hidden]{display:none!important}
+@media(max-width:600px){nav div a{margin-left:10px}.row{grid-template-columns:1fr}.btn.ghost{margin:10px 0 0}}
+@media print{nav,.hero,#why,#biz,footer,.chat,.sec,.no-print{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="w">
+<nav><a class="logo" href="#top">Local<b>Path</b></a><div><a href="#how">How it works</a><a href="#planner">Planner</a><a href="#why">Impact</a></div></nav>
+<span class="eyebrow">AI-powered local tourism guide</span>
+<h1>Skip the crowds. Discover the <em>places your town is proud of.</em></h1>
+<p class="lead">LocalPath turns your interests, time and budget into a day plan built around hidden gems, local food, heritage and etiquette, in English, Hindi or Hinglish.</p>
+<a class="btn" href="#planner">Plan my local day</a><a class="btn ghost" href="#biz">For local businesses</a>
+<div class="stats"><div><strong>60 sec</strong><span>from idea to itinerary</span></div><div><strong>3</strong><span>languages supported</span></div><div><strong>0</strong><span>sign-ups or fees</span></div></div>
+</div></header>
+
+<section id="how"><div class="w">
+<h2>The problem we solve</h2>
+<p class="sec-sub">Most visitors only see the top few attractions. Small heritage sites, family-run eateries and artisans stay invisible, and travellers don’t know what to wear, when to go or what is respectful.</p>
+<div class="grid">
+<div class="card"><div class="ico">🧭</div><h3>Personalised plans</h3><p>Tell us your interests, budget, group and time. Get a realistic, timed route.</p></div>
+<div class="card"><div class="ico">💎</div><h3>Hidden gems, flagged</h3><p>Lesser-known places are tagged so you know what the crowds are missing.</p></div>
+<div class="card"><div class="ico">🍲</div><h3>Local food and culture</h3><p>Dishes to try and etiquette tips so you travel respectfully.</p></div>
+<div class="card"><div class="ico">💬</div><h3>Ask-a-guide chat</h3><p>Follow up on anything: dress codes, transport, kid-friendly options.</p></div>
+</div></div></section>
+
+<section id="planner" class="alt"><div class="w">
+<h2>Try it now</h2>
+<p class="sec-sub">Enter any town, city or region. Works for famous destinations and small places alike.</p>
+<div class="card" id="form">
+<label for="place">Where are you exploring?</label>
+<input id="place" placeholder="e.g. Kurukshetra, Hampi, Jaipur, Ambala" autocomplete="off">
+<label>Interests</label><div class="chips" id="interests"></div>
+<div class="row"><div><label for="hours">Time available</label><select id="hours"><option>3 hours</option><option>Half day (5 hours)</option><option selected>Full day (8 hours)</option><option>2 days</option></select></div>
+<div><label for="budget">Budget per person</label><select id="budget"><option>Under ₹500</option><option selected>₹500–2,000</option><option>₹2,000–5,000</option><option>Flexible</option></select></div></div>
+<div class="row"><div><label for="who">Travelling as</label><select id="who"><option>Solo</option><option>Couple</option><option selected>Friends</option><option>Family with kids</option><option>Senior travellers</option></select></div>
+<div><label for="lang">Language</label><select id="lang"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div></div>
+<label for="extra">Anything else? (optional)</label><input id="extra" placeholder="e.g. vegetarian, wheelchair access, travelling by bus">
+<button class="btn go" id="go">Generate my itinerary</button>
+<p class="note" id="status" aria-live="polite"></p>
+</div>
+
+<div id="out" class="panel" hidden>
+<div class="card"><h2 id="title" style="font-size:1.5rem"></h2><p id="summary" style="margin:0"></p><p class="note" id="best" style="margin:8px 0 0"></p></div>
+<div class="card"><h3 style="margin-top:0">Itinerary</h3><div id="stops"></div></div>
+<div class="row"><div class="card"><h3 style="margin-top:0">🍲 Eat like a local</h3><ul id="food"></ul></div><div class="card"><h3 style="margin-top:0">🙏 Culture and etiquette</h3><ul id="etiq"></ul></div></div>
+<div class="card"><h3 style="margin-top:0">💬 Ask your local guide</h3><div id="log"></div>
+<div class="chat no-print"><input id="q" placeholder="e.g. What should I wear at the temple?" aria-label="Ask a question"><button class="btn" id="ask">Ask</button></div>
+<button class="sec" id="copy">Copy itinerary</button><button class="sec" id="print">Print / save PDF</button></div>
+<p class="note">Plans are AI-generated from general knowledge. Confirm opening hours, fees and conditions locally before you go.</p>
+</div>
+</div></section>
+
+<section id="biz"><div class="w">
+<h2>For local businesses and artisans</h2>
+<p class="sec-sub">Run a small shop, homestay, café or craft workshop? Generate a tourist-friendly listing and a ready-to-share message in seconds, so visitors can actually find you.</p>
+<div class="card">
+<div class="row"><div><label for="bn">Business name</label><input id="bn" placeholder="e.g. Sharma Pottery Studio"></div><div><label for="bt">What you offer</label><input id="bt" placeholder="e.g. hand-made clay pots, workshops"></div></div>
+<div class="row"><div><label for="bp">Town / area</label><input id="bp" placeholder="e.g. Ambala Cantt"></div><div><label for="bl">Language</label><select id="bl"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div></div>
+<button class="btn go" id="bgo">Create my tourist listing</button><p class="note" id="bstat" aria-live="polite"></p>
+<div id="bout" hidden style="margin-top:14px"><div class="card biz" id="btxt" style="background:var(--bg2)"></div><button class="sec" id="bcopy">Copy text</button></div>
+</div></div></section>
+
+<section id="why" class="alt"><div class="w">
+<h2>Who benefits</h2><p class="sec-sub">One tool, three groups.</p>
+<div class="grid">
+<div class="card"><div class="ico">🎒</div><h3>Travellers</h3><p>Authentic, less crowded experiences planned in a minute.</p></div>
+<div class="card"><div class="ico">🏪</div><h3>Local businesses</h3><p>Small shops and artisans get discoverable without marketing budgets.</p></div>
+<div class="card"><div class="ico">🏘️</div><h3>Communities</h3><p>Visitors spread out across lesser-known sites, supporting local income and heritage care.</p></div>
+</div></div></section>
+
+<footer><div class="w">LocalPath · Built for HACKSPRINT 2026, Explore Local theme. AI output may contain errors, so verify details locally.</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const IN=["History & heritage","Food & street food","Temples & spirituality","Nature & scenery","Crafts & markets","Festivals & folk culture","Photography","Off-beat & hidden spots"];
+const picked=new Set(["Off-beat & hidden spots"]);
+IN.forEach(t=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=t;b.setAttribute("aria-pressed",picked.has(t));
+b.onclick=()=>{picked.has(t)?picked.delete(t):picked.add(t);b.setAttribute("aria-pressed",picked.has(t))};$("interests").appendChild(b)});
+let plan=null,ctx="",history=[];
+function mk(tag,txt,cls){const e=document.createElement(tag);if(txt!=null)e.textContent=txt;if(cls)e.className=cls;return e}
+function parse(t){t=t.replace(/```json|```/g,"");const a=t.indexOf("{"),b=t.lastIndexOf("}");return JSON.parse(t.slice(a,b+1))}
+async function getSample(){try{return await claude.use("sample")}catch(e){return null}}
+const NOAI="AI is unavailable in this view. Open this page while signed in to claude.ai or the Claude app.";
+
+async function generate(){
+  const place=$("place").value.trim(),st=$("status");
+  if(!place){st.textContent="Please enter a place first.";st.className="note err";return}
+  st.className="note";$("go").disabled=true;st.textContent="Your local guide is planning…";
+  const sample=await getSample();
+  if(!sample){st.textContent=NOAI;st.className="note err";$("go").disabled=false;return}
+  ctx=`Destination: ${place}. Interests: ${[...picked].join(", ")||"general"}. Time: ${$("hours").value}. Budget: ${$("budget").value}. Group: ${$("who").value}. Notes: ${$("extra").value||"none"}.`;
+  const prompt=`You are a knowledgeable, honest local tourism guide. Build a realistic itinerary.
+${ctx}
+Write all text in ${$("lang").value}.
+Rules: mix one or two must-see anchors with lesser-known, community-run, heritage and locally owned places; mark genuine hidden gems; keep stops geographically sensible; never invent places, and if unsure a place exists or about its hours, say so in "tip". Costs in INR. If the destination is vague or unknown, use the nearest well-known area and say so in "summary".
+Return ONLY JSON in this shape:
+{"title":"","summary":"2 sentences","best_time_note":"best season/time of day and crowd advice","stops":[{"time":"9:00","name":"","type":"Heritage|Food|Nature|Market|Culture|Temple|Craft|Viewpoint","hidden_gem":true,"why":"what makes it special and its local significance, 2 sentences","tip":"how to reach, hours caveat, facilities","cost":"₹…","duration":"45 min"}],"food":["dish or place to try and why"],"etiquette":["respectful behaviour tip"]}
+Use 4 to 7 stops (more for 2 days, label time like Day 1 9:00).`;
+  try{const r=await sample(prompt,{modelTier:"default"});plan=parse(r.text);render();st.textContent=""}
+  catch(e){st.textContent=e&&e.code==="not_granted"?"Permission to use AI was declined.":"Something went wrong. Please try again.";st.className="note err"}
+  $("go").disabled=false;
+}
+function render(){
+  $("out").hidden=false;$("title").textContent=plan.title||"Your plan";$("summary").textContent=plan.summary||"";
+  $("best").textContent=plan.best_time_note?"When to go: "+plan.best_time_note:"";
+  const s=$("stops");s.replaceChildren();
+  (plan.stops||[]).forEach(p=>{
+    const row=mk("div",null,"stop");row.appendChild(mk("div",p.time||"","time"));const body=mk("div");const h=mk("h4",p.name||"");
+    if(p.type)h.appendChild(mk("span",p.type,"tag"));if(p.hidden_gem)h.appendChild(mk("span","Hidden gem","tag gem"));
+    body.appendChild(h);body.appendChild(mk("div",p.why||""));if(p.tip)body.appendChild(mk("div","Tip: "+p.tip,"meta"));
+    const m=mk("div",[p.duration,p.cost].filter(Boolean).join(" · ")+" · ","meta");
+    const a=mk("a","Open in Maps");a.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent((p.name||"")+" "+$("place").value);a.target="_blank";a.rel="noopener";m.appendChild(a);body.appendChild(m);
+    row.appendChild(body);s.appendChild(row)});
+  const fill=(id,a)=>{const u=$(id);u.replaceChildren();(a||[]).forEach(x=>u.appendChild(mk("li",x)))};
+  fill("food",plan.food);fill("etiq",plan.etiquette);$("log").replaceChildren();history=[];
+  $("out").scrollIntoView({behavior:"smooth"});
+}
+async function ask(){
+  const q=$("q").value.trim();if(!q||!plan)return;$("q").value="";$("log").appendChild(mk("div",q,"msg me"));
+  const a=mk("div","Thinking…","msg ai");$("log").appendChild(a);
+  const sample=await getSample();if(!sample){a.textContent=NOAI;return}
+  history.push({role:"user",content:q});
+  const sys=`You are a friendly, honest local guide. Visitor context: ${ctx}. Their itinerary: ${(plan.stops||[]).map(s=>s.time+" "+s.name).join("; ")}. Answer concisely (max 120 words) in ${$("lang").value}. If unsure of a fact, say so rather than guessing.\n\n`;
+  const msgs=history.map((m,i)=>i===0?{role:"user",content:sys+m.content}:m);
+  try{const r=await sample(msgs,{cache:false,onText:({text})=>{a.textContent=text}});a.textContent=r.text;history.push({role:"assistant",content:r.text})}
+  catch(e){a.textContent="Sorry, that didn’t work. Please try again.";history.pop()}
+}
+function asText(){return [plan.title,plan.summary,"",...(plan.stops||[]).map(s=>`${s.time} – ${s.name}${s.hidden_gem?" (hidden gem)":""}\n  ${s.why}\n  Tip: ${s.tip||""} | ${s.duration||""} ${s.cost||""}`),"","Eat:",...(plan.food||[]).map(x=>"- "+x),"","Etiquette:",...(plan.etiquette||[]).map(x=>"- "+x)].join("\n")}
+async function biz(){
+  const n=$("bn").value.trim(),t=$("bt").value.trim(),p=$("bp").value.trim(),st=$("bstat");
+  if(!n||!t||!p){st.textContent="Please fill in name, offering and area.";st.className="note err";return}
+  st.className="note";st.textContent="Writing your listing…";$("bgo").disabled=true;
+  const sample=await getSample();if(!sample){st.textContent=NOAI;st.className="note err";$("bgo").disabled=false;return}
+  try{const r=await sample(`Write a tourist-facing promotion kit in ${$("bl").value} for a local business. Business: ${n}. Offers: ${t}. Area: ${p}. Do not invent prices, awards, hours or facts not given; use placeholders like [add your timings] where needed. Output plain text (no markdown) with these parts: 1) LISTING TITLE (max 8 words); 2) SHORT DESCRIPTION (3 sentences, warm and authentic); 3) WHY VISIT (3 short lines); 4) WHATSAPP/INSTAGRAM CAPTION (2 lines + 3 hashtags); 5) THREE EXPERIENCE IDEAS visitors would enjoy (e.g. workshop, tasting, story walk).`,{modelTier:"default"});
+    $("btxt").textContent=r.text.replace(/\*\*/g,"");$("bout").hidden=false;st.textContent=""}
+  catch(e){st.textContent="Something went wrong. Please try again.";st.className="note err"}
+  $("bgo").disabled=false;
+}
+$("go").onclick=generate;$("ask").onclick=ask;$("q").onkeydown=e=>{if(e.key==="Enter")ask()};$("bgo").onclick=biz;
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(asText());$("copy").textContent="Copied"}catch(e){$("copy").textContent="Copy not available"}};
+$("bcopy").onclick=async()=>{try{await navigator.clipboard.writeText($("btxt").textContent);$("bcopy").textContent="Copied"}catch(e){$("bcopy").textContent="Copy not available"}};
+$("print").onclick=()=>window.print();
+</script>
+</body>
+</html>
